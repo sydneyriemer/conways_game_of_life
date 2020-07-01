@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
+plt.rcParams['animation.ffmpeg_path'] = r'C:\\Users\\sydne\\Documents\\Python Scripts\\ffmpeg.exe'
 import numpy as np
 from scipy import ndimage
-from matplotlib.animation import FuncAnimation
+from matplotlib import animation
 
 grid = np.random.randint(2, size=(500,500)) #creates 500x500 numpy array with random assortment of ones and zeros
 
@@ -23,6 +24,11 @@ def next_gen(arr):
     ax.imshow(grid,cmap='viridis') #shows image of numpy array holding the state of the environment
     ax.grid(False)
     
-animation = FuncAnimation(fig, next_gen, interval=10, frames=100) #animates the game
-#plt.show()
-animation.save('assignment4a.mpg', writer='ffmpeg')
+anim = animation.FuncAnimation(fig, next_gen, interval=10, frames=100) #animates the game
+plt.xticks([])
+plt.yticks([])
+plt.title('Conway\'s Game Of Life \n Programmed by Sydney Riemer')
+plt.show()
+FFwriter = animation.FFMpegWriter(fps=5)
+f=r'C:\\Users\\sydne\\Desktop\\Riemer_Assignment4_P1.avi'
+anim.save(f, writer=FFwriter)
